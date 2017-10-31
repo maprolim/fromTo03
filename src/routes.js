@@ -51,12 +51,12 @@ const tip06 = {
 let arrayOfTips = [ tip01, tip02, tip03, tip04, tip05, tip06  ]
 
 
-routes.get('/tips', (req, res) => {
-  res.json(arrayOfTips);
-//  res.send(window.location.search);
-});
+// routes.get('/tips', (req, res) => {
+//   res.json(arrayOfTips);
+// //  res.send(window.location.search);
+// });
 
-routes.get('/tipsFinder', (req, res) => {
+routes.get('/tips', (req, res) => {
 
   function filterByDestinyCountry(obj) {
     if (obj.destinyCountry == req.param('dCountry')) { return true; } 
