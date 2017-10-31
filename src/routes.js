@@ -77,24 +77,34 @@ routes.get('/tipsFinder', (req, res) => {
   let arrayOfTipsFiltered;
   arrayOfTipsFiltered = arrayOfTips;
 
-  if ( typeof(req.param('dCountry')) != 'undefined' ){ 
-    arrayOfTipsFiltered = arrayOfTipsFiltered.filter(filterByDestinyCountry);
+
+  if (typeof(req.param('dCountry')) == 'undefined' && typeof(req.param('dCity')) == 'undefined' && typeof(req.param('oCountry')) == 'undefined' && typeof(req.param('oCity')) == 'undefined'){
+    res.json(arrayOfTips);
   }
-  if (typeof(req.param('dCity')) != 'undefined'){
-    arrayOfTipsFiltered = arrayOfTipsFiltered.filter(filterByDestinyCity);
-  }
-  if (typeof(req.param('oCountry')) != 'undefined'){
-    arrayOfTipsFiltered = arrayOfTipsFiltered.filter(filterByOriginCoutry);
-  }
-  if (typeof(req.param('oCity')) != 'undefined'){
-    arrayOfTipsFiltered = arrayOfTipsFiltered.filter(filterByOriginCity);
+  else {
+    if ( typeof(req.param('dCountry')) != 'undefined' ){ 
+      arrayOfTipsFiltered = arrayOfTipsFiltered.filter(filterByDestinyCountry);
+    }
+    if (typeof(req.param('dCity')) != 'undefined'){
+      arrayOfTipsFiltered = arrayOfTipsFiltered.filter(filterByDestinyCity);
+    }
+    if (typeof(req.param('oCountry')) != 'undefined'){
+      arrayOfTipsFiltered = arrayOfTipsFiltered.filter(filterByOriginCoutry);
+    }
+    if (typeof(req.param('oCity')) != 'undefined'){
+      arrayOfTipsFiltered = arrayOfTipsFiltered.filter(filterByOriginCity);
+    }
+  
+  
+    if(arrayOfTipsFiltered == ''){
+      res.send('Ops! Nenhuma sugestão foi encontrada...');
+    } else {
+      res.json(arrayOfTipsFiltered);
+    }
   }
 
-  if(arrayOfTipsFiltered == ''){
-    res.send('Ops! Nenhuma sugestão foi encontrada...');
-  } else {
-    res.json(arrayOfTipsFiltered);
-  }
+
+  
   
 });
 
