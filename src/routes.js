@@ -50,11 +50,8 @@ const tip06 = {
 
 let arrayOfTips = [ tip01, tip02, tip03, tip04, tip05, tip06  ]
 
+////////////////////////////////////
 
-// routes.get('/tips', (req, res) => {
-//   res.json(arrayOfTips);
-// //  res.send(window.location.search);
-// });
 
 routes.get('/tips', (req, res) => {
 
@@ -102,15 +99,17 @@ routes.get('/tips', (req, res) => {
       res.json(arrayOfTipsFiltered);
     }
   }
-
-
-  
-  
 });
 
-routes.get('/tipid', (req, res) => {
-  let itemToShow = req.param('id');
+routes.get('/tips/random', (req, res) => {
+  
+  function randomIntBetween(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  let itemToShow = randomIntBetween(0, (arrayOfTips.length -1));
   res.json(arrayOfTips[itemToShow]);
+
 });
 
 routes.get('/tips/:id', (req, res) => {
@@ -120,16 +119,21 @@ routes.get('/tips/:id', (req, res) => {
 
 routes.post('/tips', (req, res) => {
 
-  let incomingForPut = {
-    destinyCountry: req.body.dCountry,
-    destinyCity: req.body.dCity,
-    originCountry: req.body.oCountry,
-    originCity: req.body.oCity,
-    sugestion: req.body.sug
-  }
-  arrayOfTips.push(incomingForPut);
+  // if(typeof(req.body.dCountry) == 'undefined' || typeof(req.body.dCity) == 'undefined' || typeof(req.body.oCountry) == 'undefined' || typeof(req.body.oCity) == 'undefined' || typeof(req.body.sug) == 'undefined') {
 
-  res.json(arrayOfTips);
+  // }
+  // else {
+    let incomingForPut = {
+      destinyCountry: req.body.dCountry,
+      destinyCity: req.body.dCity,
+      originCountry: req.body.oCountry,
+      originCity: req.body.oCity,
+      sugestion: req.body.sug
+    }
+    arrayOfTips.push(incomingForPut);
+  
+    res.json(arrayOfTips);
+  // }
 
 });
 
@@ -163,6 +167,10 @@ routes.delete('/tips', (req, res) => {
 
   res.json(arrayOfTips);
 });
+
+
+
+
 
 
 /**
