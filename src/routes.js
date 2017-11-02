@@ -53,6 +53,14 @@ let arrayOfTips = [ tip01, tip02, tip03, tip04, tip05, tip06  ]
 ////////////////////////////////////
 
 
+routes.use((req, res, next) => {
+  console.log(req.method)
+  next()
+
+})
+
+
+
 routes.get('/tips', (req, res) => {
 
   function filterByDestinyCountry(obj) {
@@ -109,6 +117,7 @@ routes.get('/tips/random', (req, res) => {
 
   let itemToShow = randomIntBetween(0, (arrayOfTips.length -1));
   res.json(arrayOfTips[itemToShow]);
+  
 
 });
 
