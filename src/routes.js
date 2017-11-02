@@ -146,27 +146,31 @@ routes.post('/tips', (req, res) => {
 
 });
 
-routes.put('/tips', (req, res) => {
+routes.put('/tips/:id', (req, res) => {
 
-  let itemToUpdate = req.body.id;
-  
-  let incomingForPut = {
-    updateDestinyCountry: req.body.dCountry,
-    updateDestinyCity: req.body.dCity,
-    updateOriginCountry: req.body.oCountry,
-    updateOriginCity: req.body.oCity,
-    updateSugestion: req.body.sug
+  let { id } = req.params;
+  //let { destinyCountry, destinyCity, originCountry, originCity, sugestion } = req.body;
+
+  if(0 <= id < arrayOfTips.length ){
+    arrayOfTips[id] = {
+      ...arrayOfTips[id],
+      ...req.body
+    }
+
+
+    // if(destinyCountry) {arrayOfTips[id].destinyCountry = destinyCountry};
+    // if(destinyCity) {arrayOfTips[id].destinyCity = destinyCity};
+    // if(originCountry) {arrayOfTips[id].originCountry = originCountry};
+    // if(originCity) {arrayOfTips[id].originCity = originCity};
+    // if(sugestion) {arrayOfTips[id].sugestion = sugestion};
   }
 
-  if(0 <= itemToUpdate < arrayOfTips.length ){
-    if(incomingForPut.updateDestinyCountry != '') {arrayOfTips[itemToUpdate].destinyCountry = incomingForPut.updateDestinyCountry};
-    if(incomingForPut.updateDestinyCity != '') {arrayOfTips[itemToUpdate].destinyCity = incomingForPut.updateDestinyCity};
-    if(incomingForPut.updateOriginCountry != '') {arrayOfTips[itemToUpdate].originCountry = incomingForPut.updateOriginCountry};
-    if(incomingForPut.updateOriginCity != '') {arrayOfTips[itemToUpdate].originCity = incomingForPut.updateOriginCity};
-    if(incomingForPut.updateSugestion != '') {arrayOfTips[itemToUpdate].sugestion = incomingForPut.updateSugestion};
-  }
 
   res.json(arrayOfTips);
+
+  // let id = req.params.id;
+  // res.json(arrayOfTips[id]);
+
 });
 
 routes.delete('/tips', (req, res) => {
